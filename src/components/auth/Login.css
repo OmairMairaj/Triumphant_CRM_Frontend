@@ -1,0 +1,115 @@
+/* Login Page Wrapper */
+.login {
+    height: 100vh;
+    padding: 20px 5%;
+
+}
+
+/* Logo Styling */
+.login-site-logo {
+    /* width: 100px; */
+    height: 100px;
+    margin: 0 auto;
+}
+
+/* Centering the Login Box */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    position: relative;
+    text-align: left;
+}
+
+/* Login Box Styling */
+.login-box {
+    background-color: #f8f8fc;
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    /* min-height: 50vh; */
+}
+
+/* Heading Styling */
+.login_heading {
+    font-size: 36px;
+    font-weight: 700;
+    /* margin-bottom: 40px; */
+    color: #235da2;
+    font-style: italic;
+}
+
+/* Input Fields Styling */
+.inputfield {
+    width: 90%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.inputfield:focus {
+    border-color: #235da2;
+    box-shadow: 0 0 5px rgba(18, 13, 120, 0.5);
+}
+
+/* Submit Button Styling */
+.btn-submit {
+    background-color: #235da2;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #0d396e;
+}
+
+/* Signup Button Styling */
+.signup-container {
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.btn-signup {
+    color: #235da2;
+    font-weight: bold;
+    text-decoration: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.btn-signup:hover {
+    color: #0d396e;
+}
+
+/* Alert Message Styling */
+.alert {
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #f44336;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767px) {
+    .login-box {
+        padding: 20px;
+        max-width: 100%;
+    }
+}
