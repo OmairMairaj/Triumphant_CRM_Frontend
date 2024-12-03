@@ -39,7 +39,7 @@ const Users = () => {
 
         if (expandedRow !== rowIndex) {
             // Fetch the sales data only if the row is being expanded
-            setLoading(true);
+            // setLoading(true);
             try {
                 const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/vehiclesales/${customerId}`, {
                     headers: {
@@ -52,8 +52,8 @@ const Users = () => {
                 }));
             } catch (error) {
                 console.error('Error fetching user sales data', error);
-            } finally {
-                setLoading(false);
+                // } finally {
+                //     setLoading(false);
             }
         }
     };

@@ -63,6 +63,7 @@ const CustomerDashboard = () => {
                                 <th>Amount Due</th>
                                 <th>Estimated Delivery</th>
                                 <th>Payment Status</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -76,11 +77,12 @@ const CustomerDashboard = () => {
                                         <td>${sale.paymentDetails.amountDue}</td>
                                         <td>{formatDate(sale.estimatedDelivery)}</td>
                                         <td>{sale.paymentDetails.paymentStatus}</td>
+                                        <td>{sale.status}</td>
                                     </tr>
 
                                     {expandedRow === index && (
                                         <tr className="expanded-row">
-                                            <td colSpan="7">
+                                            <td colSpan="8">
                                                 <div className="expanded-details">
                                                     <div className='expanded-details-heading'>Sale Details</div>
                                                     <div className="expanded-content">

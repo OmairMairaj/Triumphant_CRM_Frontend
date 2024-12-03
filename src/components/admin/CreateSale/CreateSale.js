@@ -5,7 +5,9 @@ import './CreateSale.css';
 import { FaChevronLeft } from 'react-icons/fa';
 
 const CreateSale = () => {
+    const currentUser = JSON.parse(localStorage.getItem("user"));
     const [formData, setFormData] = useState({
+        user: currentUser,
         vehicleDetails: {
             make: '',
             model: '',
