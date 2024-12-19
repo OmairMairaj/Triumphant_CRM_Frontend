@@ -93,3 +93,81 @@
     color: #235da2;
     margin-top: 20px;
 }
+
+.created-by-filter {
+    /* appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none; */
+    position: relative;
+    width: 200px;
+    padding: 8px;
+    margin-right: 10px;
+    font-size: 16px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+    /* transform: translate(40px); */
+}
+
+/* Fix for select field rendering */
+.created-by-filter:focus {
+    outline: none;
+    border: 1px solid #007bff;
+}
+
+/* Force dropdown to render below the select */
+.created-by-filter option {
+    background: white !important;
+    color: #333;
+}
+
+.scroll-lock {
+    overflow: hidden;
+    height: 100vh;
+}
+
+.edit-modal {
+    width: 650px;
+}
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 2rem;
+}
+
+.edit-form-group {
+    margin: 10px 0;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 98%;
+}
+
+.edit-form-group label {
+    /* width: 40%; */
+    text-align: left;
+
+    margin-right: 5px;
+}
+
+.edit-form-group input {
+    padding: 5px;
+    width: 70%;
+    font-size: 16px;
+
+}
+
+.edit-form-group select {
+    padding: 5px;
+    width: 72%;
+    font-size: 16px;
+
+}
+
+.edit-modal-actions {
+    margin-top: 1rem;
+}

@@ -172,3 +172,119 @@
     flex: 1 1 200px;
     min-width: 200px;
 }
+
+/* Resetting default dropdown behavior */
+.seller-filter {
+    /* appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none; */
+    position: relative;
+    width: 200px;
+    padding: 8px;
+    margin-right: 10px;
+    font-size: 16px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+    /* transform: translate(40px); */
+}
+
+/* Fix for select field rendering */
+.seller-filter:focus {
+    outline: none;
+    border: 1px solid #007bff;
+}
+
+/* Force dropdown to render below the select */
+.seller-filter option {
+    background: white !important;
+    color: #333;
+}
+
+
+/* Blurred background when modal is active */
+.blur-background {
+    /* filter: blur(5px); */
+    /* pointer-events: none; */
+    /* opacity: 0.5; */
+}
+
+/* Modal overlay covering the entire screen */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Centered modal content */
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    /* width: 400px; */
+    /* height: 200px; */
+    width: max-content;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-heading {
+    color: #235da2;
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+/* Modal action buttons */
+.modal-actions {
+    display: flex;
+    justify-content: space-around;
+    /* margin-top: 1rem; */
+    /* padding: 3rem; */
+    width: 100%;
+}
+
+.modal-actions .btn {
+    margin-top: 1rem;
+    padding: 0.5rem 4rem;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.modal-actions-btn-danger {
+    background-color: #235da2;
+    color: white;
+    /* border: 1px solid #235da2; */
+    border: none;
+}
+
+.modal-actions-btn-danger:hover {
+    background-color: #014495;
+    /* color: white; */
+}
+
+.modal-actions-btn-secondary {
+    background-color: transparent;
+    color: #235da2;
+    border: 1px solid #235da2;
+}
+
+.modal-actions-btn-secondary:hover {
+    background-color: #235da2;
+    color: white;
+    /* border: none; */
+}
+
+.scroll-lock {
+    overflow: hidden;
+    height: 100vh;
+}

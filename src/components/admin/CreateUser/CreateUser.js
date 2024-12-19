@@ -5,6 +5,7 @@ import './CreateUser.css';
 import { FaChevronLeft } from 'react-icons/fa';
 
 const CreateUser = () => {
+    const currentUser = JSON.parse(sessionStorage.getItem('user'));
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -12,8 +13,9 @@ const CreateUser = () => {
         role: 'customer',
         phone: '',
     });
+    const roles = ['customer', 'employee', 'admin']; // Default roles
     const [errors, setErrors] = useState({});
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const navigate = useNavigate();
 
     // Handle form input changes
@@ -31,8 +33,9 @@ const CreateUser = () => {
         if (!formData.name) formErrors.name = 'Name is required';
         if (!formData.email) formErrors.email = 'Email is required';
         if (!formData.password) formErrors.password = 'Password is required';
-        if (formData.password && formData.password.length < 6) formErrors.password = 'Password must be at least 6 characters';
-        if (!formData.phone || !/\d{10}/.test(formData.phone)) formErrors.phone = 'Phone is required and must be a valid 10-digit number';
+        if (formData.password && formData.password.length < 6)
+            formErrors.password = 'Password must be at least 6 characters';
+        if (!formData.phone) formErrors.phone = 'Phone is required';
 
         setErrors(formErrors);
         return Object.keys(formErrors).length === 0;
@@ -53,6 +56,7 @@ const CreateUser = () => {
             navigate('/admin-dashboard/users'); // Navigate back to the users list page on success
         } catch (error) {
             console.error('Error creating user', error);
+            setErrors({ submitError: 'Failed to create user. Please try again.' });
         }
     };
 
@@ -63,7 +67,7 @@ const CreateUser = () => {
                 <FaChevronLeft /> Back to Users List
             </button>
 
-            <h2 className='create-user-heading'>Create New User</h2>
+            <h2 className="create-user-heading">Create New User</h2>
             <form onSubmit={handleSubmit} className="create-user-form">
                 <div className="form-grid">
                     {/* Name */}
@@ -103,17 +107,22 @@ const CreateUser = () => {
                     </div>
 
                     {/* Role */}
-                    <div className="form-group">
-                        <label>Role</label>
-                        <select
-                            name="role"
-                            value={formData.role}
-                            onChange={handleInputChange}
-                        >
-                            <option value="customer">Customer</option>
-                            <option value="admin">Admin</option>
-                        </select>
-                    </div>
+                    {currentUser.role === "admin" && (
+                        <div className="form-group">
+                            <label>Role</label>
+                            <select
+                                name="role"
+                                value={formData.role}
+                                onChange={handleInputChange}
+                            >
+                                {roles.map((role) => (
+                                    <option key={role} value={role}>
+                                        {role.charAt(0).toUpperCase() + role.slice(1)}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    )}
 
                     {/* Phone */}
                     <div className="form-group">

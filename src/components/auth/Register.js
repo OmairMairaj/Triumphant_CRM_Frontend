@@ -20,7 +20,8 @@ const Register = () => {
             navigate('/');
 
         } catch (err) {
-            setError(err.response?.data?.msg || 'Registration failed. Please try again.');
+            console.log(err);
+            setError(err.response?.data?.errors[0].msg || 'Registration failed. Please try again.');
         }
     };
 
@@ -63,7 +64,6 @@ const Register = () => {
                             placeholder="Enter phone number"
                             value={user.phone}
                             onChange={(e) => setUser({ ...user, phone: e.target.value })}
-                            pattern="\d{10}"  // Validates for a 10-digit number
                             required
                             className="inputfield"
                         />

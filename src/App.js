@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import CustomerDashboard from './components/customer/CustomerDashboard';
@@ -25,11 +25,12 @@ function App() {
         <Route
           path="/admin-dashboard/*"  // Add '*' here for nested routes
           element={
-            <PrivateRoute roles={['admin']}>
+            <PrivateRoute roles={['admin', 'employee']}>
               <AdminDashboard />
             </PrivateRoute>
           }
         />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );

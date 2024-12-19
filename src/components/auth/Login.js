@@ -16,12 +16,12 @@ const Login = () => {
             const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/login`, { email, password });
 
             const { token, user } = res.data;
-            localStorage.setItem('token', token);
-            localStorage.setItem('userRole', user.role);
-            localStorage.setItem('user', JSON.stringify(user));
+            sessionStorage.setItem('token', token);
+            sessionStorage.setItem('userRole', user.role);
+            sessionStorage.setItem('user', JSON.stringify(user));
 
             // Redirect based on role
-            if (user.role === 'admin') {
+            if (user.role === 'admin' || user.role === 'employee') {
                 navigate('/admin-dashboard');
             } else if (user.role === 'customer') {
                 navigate('/customer-dashboard');
@@ -29,6 +29,7 @@ const Login = () => {
                 navigate('/');
             }
         } catch (err) {
+            console.log(err)
             setError(err.response?.data?.msg || 'Login failed. Please try again.');
         }
     };

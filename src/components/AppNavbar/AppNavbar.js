@@ -6,17 +6,16 @@ const AppNavbar = () => {
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
 
-    // Load user info from localStorage
+    // Load user info from sessionStorage
     useEffect(() => {
-        const storedUser = localStorage.getItem('user');
+        const storedUser = sessionStorage.getItem('user');
         if (storedUser) {
             setUser(JSON.parse(storedUser));
         }
     }, []);
 
     const logout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
+        sessionStorage.clear();
         navigate('/');
     };
 
@@ -29,7 +28,7 @@ const AppNavbar = () => {
             <div className="navbar-logo" onClick={() => navigate('/')}>
                 <img src='/logo.png' alt='Site Logo' className='nav-site-logo' />
             </div>
-            {user.role === 'admin' && (
+            {(user.role === 'admin' || user.role === 'employee') && (
                 <div className='navbar-links'>
                     <Link to="/admin-dashboard" className="navbar-link">
                         DASHBOARD
@@ -40,6 +39,9 @@ const AppNavbar = () => {
                 </div>
             )}
             <div className="navbar-menu">
+                <div className='user-info'>
+                    Hello, {user.name}
+                </div>
                 {user.role === 'admin' ? (
 
                     <button className="navbar-button" onClick={logout}>

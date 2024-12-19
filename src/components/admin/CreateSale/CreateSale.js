@@ -5,7 +5,7 @@ import './CreateSale.css';
 import { FaChevronLeft } from 'react-icons/fa';
 
 const CreateSale = () => {
-    const currentUser = JSON.parse(localStorage.getItem("user"));
+    const currentUser = JSON.parse(sessionStorage.getItem("user"));
     const [formData, setFormData] = useState({
         user: currentUser,
         vehicleDetails: {
@@ -13,13 +13,14 @@ const CreateSale = () => {
             model: '',
             year: '',
             vin: '',
-            price: ''
+            price: '',
         },
         customer: '',
         paymentDetails: {
             amountPaid: '',
             amountDue: '',
-            paymentStatus: 'Pending'
+            paymentStatus: 'Pending',
+            currency: 'USD', // Default currency
         },
         status: 'in progress',
         estimatedDelivery: ''
@@ -27,20 +28,25 @@ const CreateSale = () => {
     const [errors, setErrors] = useState({});
     const [users, setUsers] = useState([]);
     const [selectedCustomer, setSelectedCustomer] = useState(null);
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
+    // Fetch customers based on role
     useEffect(() => {
         const fetchUsers = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/users`, {
+                const endpoint = currentUser.role === 'employee'
+                    ? `${process.env.REACT_APP_BACKEND_URL}/api/users?seller=${currentUser.id}`
+                    : `${process.env.REACT_APP_BACKEND_URL}/api/users`;
+
+                const response = await axios.get(endpoint, {
                     headers: {
                         'x-auth-token': token,
                     },
                 });
-                setUsers(response.data);
+                setUsers(response.data.filter(user => user.role === 'customer'));
             } catch (error) {
                 console.error('Error fetching users', error);
             } finally {
@@ -48,7 +54,7 @@ const CreateSale = () => {
             }
         };
         fetchUsers();
-    }, [token]);
+    }, [token, currentUser.role, currentUser.id]);
 
     // Handle form input changes
     const handleInputChange = (e) => {
@@ -89,6 +95,7 @@ const CreateSale = () => {
         if (!formData.vehicleDetails.year || isNaN(formData.vehicleDetails.year))
             formErrors.year = 'Valid vehicle year is required';
         if (!formData.vehicleDetails.vin) formErrors.vin = 'Vehicle VIN is required';
+        if (!formData.paymentDetails.currency) formErrors.currency = 'Currency is required';
         if (!formData.vehicleDetails.price || isNaN(formData.vehicleDetails.price))
             formErrors.price = 'Valid vehicle price is required';
         if (!formData.customer) formErrors.customer = 'Customer is required';
@@ -105,16 +112,14 @@ const CreateSale = () => {
     // Submit the form
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         if (!validateForm()) return;
-
         try {
             await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/vehiclesales/create`, formData, {
                 headers: {
-                    'x-auth-token': token
-                }
+                    'x-auth-token': token,
+                },
             });
-            navigate('/admin-dashboard'); // Navigate back to the sales page on success
+            navigate('/admin-dashboard');
         } catch (error) {
             console.error('Error creating sale record', error);
             setErrors({ submitError: 'Failed to create sale. Please try again.' });
@@ -236,6 +241,20 @@ const CreateSale = () => {
                         {/* Payment Details */}
                         <div className='sale-form-section'>
                             <h3>Payment Details</h3>
+                            <div className="sale-form-group">
+                                <label>Currency</label>
+                                <select
+                                    name="paymentDetails.currency"
+                                    value={formData.paymentDetails.currency}
+                                    onChange={handleInputChange}
+                                >
+                                    <option value="$">USD ($)</option>
+                                    <option value="€">EUR (€)</option>
+                                    <option value="Rs">PKR (Rs)</option>
+                                    <option value="¥">JPY (¥)</option>
+                                </select>
+                                {errors.currency && <span className="error">{errors.currency}</span>}
+                            </div>
                             <div className="sale-form-group">
                                 <label>Amount Paid</label>
                                 <input
